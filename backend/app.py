@@ -61,12 +61,16 @@ nltk.download('stopwords', quiet=True)
 stop_words = set(stopwords.words('english'))
 
 try:
-    model = pickle.load(open("backend/model/model.pkl", "rb"))
-    vectorizer = pickle.load(open("backend/model/vectorizer.pkl", "rb"))
+    with open("backend/model/model.pkl", "rb") as f:
+        model = pickle.load(f)
 
-    # Older pickles can miss this attribute, which breaks predict_proba.
+    with open("backend/model/vectorizer.pkl", "rb") as f:
+        vectorizer = pickle.load(f)
+
+    # Fix for older sklearn models
     if model is not None and not hasattr(model, "multi_class"):
         model.multi_class = "auto"
+
 except Exception as e:
     print("❌ Error loading model:", e)
     model = None
