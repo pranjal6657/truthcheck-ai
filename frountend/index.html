@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="truthcheck-api-url" content="http://127.0.0.1:5000/analyze" />
+    <title>TruthCheck AI - Fake News Detector</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="ambient ambient-a" aria-hidden="true"></div>
+    <div class="ambient ambient-b" aria-hidden="true"></div>
+    <div class="ambient-grid" aria-hidden="true"></div>
+
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-mark">T</div>
+            <div>
+                <h1>TruthCheck AI</h1>
+                <p>Fake news detection with clear evidence</p>
+            </div>
+        </div>
+        <button class="ghost-button" id="topAnalyzeBtn" type="button">Analyze Now</button>
+    </header>
+
+    <main class="page-shell">
+        <section class="hero">
+            <div class="hero-copy reveal reveal-1">
+                <span class="eyebrow">Truth over noise</span>
+                <h2>Check whether an article is real or fake in seconds.</h2>
+                <p>Paste the text of a story and get a confidence score, model verdict, and a short explanation of what triggered the result. Built to feel fast, readable, and trustworthy.</p>
+                <div class="hero-actions">
+                    <button id="demoBtn" class="primary-button secondary-button" type="button">Load sample text</button>
+                    <button id="realDemoBtn" class="ghost-button" type="button">Load real sample</button>
+                    <button id="scrollResultBtn" class="ghost-button" type="button">Jump to result</button>
+                </div>
+                <div class="quick-strip">
+                    <div class="quick-chip">
+                        <span class="quick-label">Scan speed</span>
+                        <strong>Fast</strong>
+                    </div>
+                    <div class="quick-chip">
+                        <span class="quick-label">Input</span>
+                        <strong>Text or URL</strong>
+                    </div>
+                    <div class="quick-chip">
+                        <span class="quick-label">Output</span>
+                        <strong>Clean verdict</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-card reveal reveal-2">
+                <div class="hero-stat stat-a">
+                    <span>Model status</span>
+                    <strong>Online</strong>
+                </div>
+                <div class="hero-stat stat-b">
+                    <span>Max input</span>
+                    <strong>5,000 chars</strong>
+                </div>
+                <div class="hero-stat stat-c">
+                    <span>Response</span>
+                        <strong>Quick verdict</strong>
+                </div>
+            </div>
+        </section>
+
+        <section class="mini-info reveal reveal-3">
+            <div>
+                <span class="panel-kicker">Why it feels better</span>
+                <h3>Simple, quick, and easy to read</h3>
+            </div>
+            <p>The layout keeps only the useful summary visible, with small attention-grabbing details that make the page feel more complete without overwhelming the user.</p>
+        </section>
+
+        <section class="workspace">
+            <div class="panel input-panel reveal reveal-4">
+                <div class="panel-heading">
+                    <div>
+                        <span class="panel-kicker">Input</span>
+                        <h3>Paste the article text</h3>
+                    </div>
+                    <div class="header-actions">
+                        <button id="pasteBtn" class="text-button" type="button">Paste from clipboard</button>
+                        <button id="clearBtn" class="text-button subtle-button" type="button">Clear</button>
+                    </div>
+                </div>
+
+                <label class="field-label" for="textInput">News text</label>
+                <textarea id="textInput" maxlength="5000" placeholder="Paste a headline, article, or social post here..."></textarea>
+
+                <div class="field-meta">
+                    <span id="charCount">0 / 5000</span>
+                    <span>Tip: shorter inputs may produce weaker confidence.</span>
+                </div>
+
+                <div class="url-row">
+                    <div class="url-field">
+                        <label class="field-label" for="sourceUrl">Optional article URL</label>
+                        <input id="sourceUrl" type="url" placeholder="https://example.com/article" />
+                    </div>
+                </div>
+
+                <div class="action-row">
+                    <div class="status-pill">
+                        <span class="status-dot"></span>
+                        <span>AI Engine ready</span>
+                    </div>
+                    <button id="analyzeBtn" class="primary-button" type="button">Analyze Now</button>
+                </div>
+
+                <div id="loading" class="loading" aria-live="polite">
+                    <span class="spinner"></span>
+                    <span>Analyzing sources...</span>
+                </div>
+            </div>
+
+            <aside class="panel result-panel reveal reveal-5" id="resultPanel">
+                <div id="errorBox" class="error-box" hidden></div>
+
+                <div class="panel-heading compact">
+                    <div>
+                        <span class="panel-kicker">Result</span>
+                        <h3>Analysis summary</h3>
+                    </div>
+                    <span class="result-badge neutral pulse-badge" id="resultBadge">Pending</span>
+                </div>
+
+                <div class="result-main">
+                    <div>
+                        <p class="result-label">Verdict</p>
+                        <h4 id="resultText">---</h4>
+                    </div>
+                    <p id="resultExplanation" class="result-explanation">Run an analysis to see why the model made this call.</p>
+                    <p id="confidenceText" class="confidence">Confidence: --%</p>
+                    <div class="progress-bar" aria-hidden="true">
+                        <div id="progressFill"></div>
+                    </div>
+                    <p class="scale-labels"><span>Fake</span><span>Real</span></p>
+                </div>
+
+                <div class="fact-check-block">
+                    <h5>Fact-check result</h5>
+                    <div class="fact-check-grid">
+                        <p><span class="fact-label">Status:</span> <span id="factCheckStatus">Not checked yet</span></p>
+                        <p><span class="fact-label">Verdict:</span> <span id="factCheckVerdict">---</span></p>
+                        <p><span class="fact-label">Source:</span> <span id="factCheckSource">---</span></p>
+                    </div>
+                    <p id="factCheckClaim" class="fact-claim">No fact-check lookup has been run yet.</p>
+                </div>
+
+                <div class="reasons-block">
+                    <h5>Why this verdict</h5>
+                    <ul id="reasonsList"></ul>
+                </div>
+
+                <div class="simple-note">
+                    <p>Detailed evidence and source breakdown are hidden to keep the interface clean.</p>
+                </div>
+
+                <div class="history-block">
+                    <div class="history-header">
+                        <div>
+                            <h5>Recent checks</h5>
+                            <p>Only this session is kept. Refreshing the page starts clean.</p>
+                        </div>
+                        <span class="history-chip">Session only</span>
+                    </div>
+                    <div id="historyList" class="history-list">
+                        <p class="history-empty">No recent checks yet.</p>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <section class="info-grid">
+            <article class="info-card reveal reveal-6">
+                <h3>Ingest</h3>
+                <p>Submit article text from any source for quick analysis.</p>
+            </article>
+            <article class="info-card reveal reveal-7">
+                <h3>Evaluate</h3>
+                <p>The model checks language patterns and signal quality from the input.</p>
+            </article>
+            <article class="info-card reveal reveal-8">
+                <h3>Verify</h3>
+                <p>Review the verdict, confidence score, and reasons in one view.</p>
+            </article>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
