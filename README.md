@@ -1,34 +1,52 @@
-📰 TruthCheck AI
+# 📰 TruthCheck AI
 
-A full-stack fake news detection system that combines Machine Learning (NLP) and Google Fact Check API to analyze the credibility of news articles and claims.
+A full-stack Fake News Detection System that combines Machine Learning (NLP) and Google Fact Check API to analyze the credibility of news articles and online claims.
 
-🚀 Features
-Real-time fake news analysis
-NLP-based text classification
-Google Fact Check API integration
-Confidence scoring
-Rate limiting protection
-Response caching
-Secure URL validation
-Modern responsive UI
-🛠️ Tech Stack
-Backend
-Python
-Flask
-Scikit-learn
-NLTK
-Requests
-BeautifulSoup4
-Frontend
-HTML
-CSS
-JavaScript
-Machine Learning
-TF-IDF Vectorization
-SGDClassifier
-External Services
-Google Fact Check Tools API
-📂 Project Structure
+---
+
+## 🚀 Features
+
+- 🔍 Real-time fake news analysis
+- 🧠 NLP-based machine learning classification
+- 🌐 Google Fact Check API integration
+- 📊 Confidence scoring system
+- ⚡ Response caching for faster results
+- 🛡️ Rate limiting protection
+- 🔒 Secure URL validation and SSRF protection
+- 🎨 Modern responsive frontend
+
+  ![Uploading Screenshot 2026-06-12 101708.png…]()
+
+
+---
+
+## 🛠️ Tech Stack
+
+### Backend
+- Python
+- Flask
+- Scikit-Learn
+- NLTK
+- Requests
+- BeautifulSoup4
+
+### Frontend
+- HTML5
+- CSS3
+- JavaScript
+
+### Machine Learning
+- TF-IDF Vectorization
+- SGDClassifier
+
+### APIs
+- Google Fact Check Tools API
+
+---
+
+## 📂 Project Structure
+
+```bash
 truthcheck-ai/
 │
 ├── backend/
@@ -44,47 +62,74 @@ truthcheck-ai/
 │   └── script.js
 │
 └── README.md
-🧠 How It Works
-User enters news text or article URL.
-Backend cleans and preprocesses the text.
-TF-IDF converts text into numerical features.
-Machine Learning model predicts:
-Real
-Fake
-Uncertain
-Google Fact Check API verifies known claims.
-Results are combined and displayed with confidence scores.
-🔒 Security Features
-URL validation
-SSRF protection
-Request rate limiting
-API key protection through environment variables
-Response caching
-⚙️ Installation
-Clone Repository
+```
+
+---
+
+## 🧠 How It Works
+
+1. User enters a news article or claim.
+2. Text is cleaned and preprocessed.
+3. TF-IDF converts text into numerical vectors.
+4. Machine Learning model predicts:
+   - Real
+   - Fake
+   - Uncertain
+5. Google Fact Check API verifies known claims.
+6. Results are combined and displayed with confidence scores.
+
+---
+
+## 🔒 Security Features
+
+- URL Validation
+- SSRF Protection
+- Rate Limiting
+- Environment Variable API Keys
+- Response Caching
+- Input Sanitization
+
+---
+
+## ⚙️ Installation
+
+### Clone Repository
+
+```bash
 git clone https://github.com/pranjal6657/truthcheck-ai.git
 cd truthcheck-ai
-Install Dependencies
+```
+
+### Install Dependencies
+
+```bash
 pip install -r backend/requirements.txt
-Set Environment Variable
-set FACT_CHECK_API_KEY=YOUR_API_KEY
-Run Application
+```
+
+### Configure API Key
+
+Create a `.env` file:
+
+```env
+FACT_CHECK_API_KEY=your_api_key_here
+```
+
+### Run Application
+
+```bash
 python backend/app.py
-📊 Machine Learning Model
+```
 
-Algorithm:
+---
 
-SGDClassifier
+## 📊 Machine Learning Model
 
-Text Processing:
+| Component | Technology |
+|------------|------------|
+| Vectorization | TF-IDF |
+| Classifier | SGDClassifier |
+| NLP | NLTK |
+| Verification | Google Fact Check API |
 
-TF-IDF Vectorization
-Stopword Removal
-Text Cleaning
-🎯 Future Improvements
-BERT-based classification
-Multi-language support
-User authentication
-Analysis history
-Advanced fact-check aggregation
-News source credibility scoring
+---
+
