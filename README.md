@@ -15,7 +15,8 @@ A full-stack Fake News Detection System that combines Machine Learning (NLP) and
 - 🔒 Secure URL validation and SSRF protection
 - 🎨 Modern responsive frontend
 
-  ![Uploading Screenshot 2026-06-12 101708.png…]()
+  <img width="1885" height="814" alt="Screenshot 2026-06-12 101708" src="https://github.com/user-attachments/assets/24d848e2-3107-4d44-8afe-d3786ad07801" />
+
 
 
 ---
